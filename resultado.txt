@@ -1,0 +1,10 @@
+Processo 1 - Timestamp: 2022-07-22 01:47:17.666437
+Processo 2 - Timestamp: 2022-07-22 01:47:17.669437
+Processo 2 - Timestamp: 2022-07-22 01:47:20.682437
+Processo 1 - Timestamp: 2022-07-22 01:47:20.682437
+Processo 2 - Timestamp: 2022-07-22 01:47:23.697462
+Processo 1 - Timestamp: 2022-07-22 01:47:23.697462
+Processo 1 - Timestamp: 2022-07-22 01:47:26.704437
+Processo 2 - Timestamp: 2022-07-22 01:47:26.704437
+Processo 1 - Timestamp: 2022-07-22 01:47:29.707542
+Processo 2 - Timestamp: 2022-07-22 01:47:29.707542

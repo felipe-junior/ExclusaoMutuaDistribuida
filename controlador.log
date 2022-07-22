@@ -1,0 +1,50 @@
+INFO:websockets.server:server listening on 127.0.0.1:8765
+INFO:websockets.server:server listening on [::1]:8765
+INFO:websockets.server:connection open
+INFO:root:TIMESTAMP: 2022-07-22 01:47:17.665437 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 1
+INFO:websockets.server:connection open
+INFO:root:TIMESTAMP: 2022-07-22 01:47:17.668437 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:20.681437 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:20.681437 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:20.682437 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:20.721435 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:23.696531 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:23.696531 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:23.697462 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:23.697462 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:26.703531 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:26.704437 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:26.704437 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:26.704437 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:29.706646 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:29.707542 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:29.707542 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 2
+INFO:root:TIMESTAMP: 2022-07-22 01:47:29.707542 TIPO DE MENSAGEM: REQUEST NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:32.715608 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 1
+INFO:root:TIMESTAMP: 2022-07-22 01:47:32.715608 TIPO DE MENSAGEM: RELEASE NUMERO DO PROCESSO: 2
+ERROR:websockets.server:connection handler failed
+Traceback (most recent call last):
+  File "C:\Anaconda3\lib\site-packages\websockets\legacy\server.py", line 232, in handler
+    await self.ws_handler(self)
+  File "app.py", line 48, in echo
+    await websocket.send("GRANT")
+  File "C:\Anaconda3\lib\site-packages\websockets\legacy\protocol.py", line 620, in send
+    await self.ensure_open()
+  File "C:\Anaconda3\lib\site-packages\websockets\legacy\protocol.py", line 930, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1000 (OK); then sent 1000 (OK)
+INFO:websockets.server:connection closed
+ERROR:websockets.server:connection handler failed
+Traceback (most recent call last):
+  File "C:\Anaconda3\lib\site-packages\websockets\legacy\server.py", line 232, in handler
+    await self.ws_handler(self)
+  File "app.py", line 48, in echo
+    await websocket.send("GRANT")
+  File "C:\Anaconda3\lib\site-packages\websockets\legacy\protocol.py", line 620, in send
+    await self.ensure_open()
+  File "C:\Anaconda3\lib\site-packages\websockets\legacy\protocol.py", line 930, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedOK: received 1000 (OK); then sent 1000 (OK)
+INFO:websockets.server:connection closed
+INFO:websockets.server:server closing
+INFO:websockets.server:server closed
