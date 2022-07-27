@@ -55,6 +55,8 @@ def createClient(id):
 if __name__ == "__main__":
     p1 = multiprocessing.Process(target=createClient, args=(1,))
     p2 = multiprocessing.Process(target=createClient, args=(2,))
+    p3 = multiprocessing.Process(target=createClient, args=(3,))
 
     p1.start()
     p2.start()
+    p3.start()
