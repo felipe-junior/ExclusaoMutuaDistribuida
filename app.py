@@ -3,7 +3,7 @@ from websockets import server
 from threading import Thread
 import logging
 from datetime import datetime
-
+import numpy as np
 
 logging.basicConfig(filename='controlador.log',
                     # w -> sobrescreve o arquivo a cada log
@@ -20,34 +20,40 @@ def desfazMensagem(message):
     else:
         mensagem = 'RELEASE'
 
-    return mensagem, processo, lixo
+    return mensagem, processo
+
+
+fila = []
+qtd = np.zeros(20)
 
 
 async def echo(websocket: server.WebSocketServerProtocol):
-    fila = []
     # Toda vez que dermos um grant para um processo, temos que salvar seu id para contar e saber quantas vezes ele acessou. Ou algo parecido com isso, mas temos que saber quantas vezes cada processo acessou a região crítica através do terminal.
     async for message in websocket:
 
-        mensagem, processo, lixo = desfazMensagem(message)
+        mensagem, processo = desfazMensagem(message)
         logger.info(
             f'TIMESTAMP: {datetime.today()} TIPO DE MENSAGEM: {mensagem} NUMERO DO PROCESSO: {processo}')
 
         # Lógica do controle de fila tá zoado. To cheio de sono, rapaziada. Espero ter adiantado um pouco.
-        if message.split('|')[0] == str(1):
+        if mensagem == 'REQUEST':
             if len(fila) == 0:
-                fila.append({'ID_Thread': message.split(
-                    '|')[1], 'Socket': websocket})
-                await websocket.send("GRANT")
-            if len(fila) > 0:
-                fila.append({'ID_Thread': message.split(
-                    '|')[1], 'Socket': websocket})
-        else:
-            del fila[0]
-            # Eu não sei se isso aqui ta sendo efetivo. Tentei sobrescrever o socket com o primeiro da fila toda vez que eu recebo um release. Para dar grant a outro processo. Mas n sei se essa desgraça tá funcionando.
-            websocket = fila[0]['Socket']
-            await websocket.send("GRANT")
-
-        # Lógica da fila tá toda torta, conseguem ajeitar? Cheio de sono.
+                fila.append({'websocket': websocket, 'processo': processo})
+                await fila[0]['websocket'].send('GRANT')
+                filaProcesso = fila[0]['processo']
+                logger.info(
+                    f'TIMESTAMP: {datetime.today()} TIPO DE MENSAGEM: GRANT NUMERO DO PROCESSO: {filaProcesso}')
+                qtd[int(filaProcesso)] = qtd[int(filaProcesso)] + 1
+            else:
+                fila.append({'websocket': websocket, 'processo': processo})
+        elif mensagem == 'RELEASE':
+            fila.pop(0)
+            if len(fila) != 0:
+                await fila[0]['websocket'].send('GRANT')
+                filaProcesso = fila[0]['processo']
+                logger.info(
+                    f'TIMESTAMP: {datetime.today()} TIPO DE MENSAGEM: GRANT NUMERO DO PROCESSO: {filaProcesso}')
+                qtd[int(filaProcesso)] = qtd[int(filaProcesso)] + 1
 
 
 async def main():
@@ -68,9 +74,10 @@ def terminal():
         input_thread = int(input(
             'O que você precisa?\n1. Imprimir fila de pedidos atual\n2. Imprimir quantas vezes cada processo foi atendido\n3. Encerrar execução\n'))
         if input_thread == 1:
-            print('Imprimindo fila')
+            print(fila)
         elif input_thread == 2:
-            print('Imprimindo quantidade')
+            for i in range(len(qtd)):
+                print(f'Processo {i}: {qtd[i]}')
         elif input_thread == 3:
             print('Encerrando execução.')
             break
@@ -83,7 +90,7 @@ thread_terminal = Thread(target=terminal)
 thread_terminal.start()
 
 # Instanciando e iniciando a thread do controle de fila
-thread_controle_de_fila = Thread(target=controle_de_fila)
-thread_controle_de_fila.start()
+#thread_controle_de_fila = Thread(target=controle_de_fila)
+# thread_controle_de_fila.start()
 
 asyncio.run(main())
